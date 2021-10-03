@@ -18,7 +18,6 @@ class Pagination extends StatelessWidget{
       fontFamily: 'SFProDisplayRegular',
       fontWeight: FontWeight.normal);
 
-  Bloc bloc = new Bloc();
   void _modalBottomSheetMenu(BuildContext context) {
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
@@ -79,8 +78,8 @@ class Pagination extends StatelessWidget{
                         queryParam["sort"]="created";
                         queryParam["direction"]="desc";
                         page =1;
-                        bloc.changedHomePage.call(PaginationUiModel(false));
-                        Future.delayed(Duration(seconds: 1), bloc.changedHomePage.call(PaginationUiModel(true)) );
+                        paginationKey.currentState.refresh();
+                        Navigator.pop(context);
                       },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,8 +99,8 @@ class Pagination extends StatelessWidget{
                         queryParam["sort"]="created";
                         queryParam["direction"]="asc";
                         page =1;
-                        bloc.changedHomePage.call(PaginationUiModel(false));
-                        Future.delayed(Duration(seconds: 1), bloc.changedHomePage.call(PaginationUiModel(true)) );
+                        paginationKey.currentState.refresh();
+                        Navigator.pop(context);
                       },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -171,45 +170,40 @@ class Pagination extends StatelessWidget{
         });
   }
 
-
+  GlobalKey<PaginationViewState> paginationKey =  GlobalKey<PaginationViewState>();
   @override
   Widget build(BuildContext context) {
-    bloc.changedHomePage.call(PaginationUiModel(true));
-    return StreamBuilder<PaginationUiModel>( stream:bloc.homePage ,
-      builder: (context, homePageSnapshot){
-      return
-        Container(
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          children: [
-            InkWell(child: Text('Sort by'),onTap: (){
-              _modalBottomSheetMenu(context);
-            },),
+    return  Container(
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        children: [
+          InkWell(child: Text('Sort by'),onTap: (){
+            _modalBottomSheetMenu(context);
+          },),
 
-        homePageSnapshot.data.showList?
-            Container(height: MediaQuery.of(context).size.height*.75,
-              child: PaginationView<Issue>(
-                itemBuilder: (BuildContext context, Issue issue, int index) => ListTile(
-                  title:Text(issue.title),
-                  subtitle: issue.user!=null &&issue.user.login!=null?Text(issue.user.login):Container(),
-                ),
-                paginationViewType: PaginationViewType.listView,
-                pageFetch: pageFetch,
 
-                bottomLoader: Center( // optional
-                  child: CircularProgressIndicator(),
-                ),
-                initialLoader: Center( // optional
-                  child: CircularProgressIndicator(),
-                ),
+          Container(height: MediaQuery.of(context).size.height*.75,
+            child:
+
+            PaginationView<Issue>(
+              key: paginationKey,
+              itemBuilder: (BuildContext context, Issue issue, int index) => ListTile(
+                title:Text(issue.title),
+                subtitle: issue.user!=null &&issue.user.login!=null?Text(issue.user.login):Container(),
               ),
-            ): Container(),
-          ],
-        ),
-      ) ;
-    },
-
-
+              paginationViewType: PaginationViewType.listView,
+              pageFetch: pageFetch,
+              pageRefresh: pageFetch,
+              bottomLoader: Center( // optional
+                child: CircularProgressIndicator(),
+              ),
+              initialLoader: Center( // optional
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
