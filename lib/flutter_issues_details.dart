@@ -28,7 +28,8 @@ class issueDetails extends StatelessWidget{
             Container(
               height: 40,
               width: MediaQuery.of(context).size.width*.25,
-              decoration: BoxDecoration(color: Colors.green,borderRadius: BorderRadius.circular(18.0),shape: BoxShape.rectangle),
+              decoration: BoxDecoration(color: issue.state=='closed'?Colors.red:
+              Colors.green,borderRadius: BorderRadius.circular(18.0),shape: BoxShape.rectangle),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(crossAxisAlignment: CrossAxisAlignment.center,
