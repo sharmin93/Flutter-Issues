@@ -15,15 +15,15 @@ class MyApp extends StatelessWidget {
         light: ThemeData(
           brightness: Brightness.light,
           primarySwatch: Colors.red,
-          accentColor: Colors.amber,
+          accentColor: Colors.deepOrangeAccent,
         ),
         dark: ThemeData(
           brightness: Brightness.dark,
           primarySwatch: Colors.red,
-          accentColor: Colors.amber,
+          accentColor: Colors.white,
         ),
         initial: AdaptiveThemeMode.light,
-        builder: (theme, darkTheme) => MaterialApp(
+        builder: (theme, darkTheme) => MaterialApp(debugShowCheckedModeBanner: false,
           title: 'Adaptive Theme Demo',
           theme: theme,
           darkTheme: darkTheme,
@@ -47,13 +47,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(appBar:
+    return Scaffold(
+      appBar:
     AppBar(centerTitle: true,title: InkWell(onTap: (){
       AdaptiveTheme.of(context).toggleThemeMode();
     },
-        child: Text('Theme')),),
-      body:
-      Center(child:Pagination()),
+        child: Text('Flutter Issues')),),
+      body: Pagination(),
 
     );
   }

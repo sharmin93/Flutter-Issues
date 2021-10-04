@@ -1,3 +1,5 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_issues/issues.dart';
@@ -177,19 +179,88 @@ class Pagination extends StatelessWidget{
       height: MediaQuery.of(context).size.height,
       child: Column(
         children: [
-          InkWell(child: Text('Sort by'),onTap: (){
-            _modalBottomSheetMenu(context);
-          },),
+          Container(
+            height: MediaQuery.of(context).size.height*.08,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RaisedButton(
+                    color: Color(0xffF2F2F2),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0)),
+                    onPressed: () {
+                      AdaptiveTheme.of(context).toggleThemeMode();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Set Theme',
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Color(0xff371D32),
+                              fontFamily: 'SF Pro Display',
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.4),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  RaisedButton(
+                    color: Color(0xffF2F2F2),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0)),
+                    onPressed: () {
+                      _modalBottomSheetMenu(context);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'SORT BY',
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Color(0xff371D32),
+                              fontFamily: 'SF Pro Display',
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.4),
+                        ),
+                        SizedBox(width: 8),
+                        Icon(
+                          Icons.sort,
+                          color: Color(0xff371D32),
+                          size: 20,
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
 
 
-          Container(height: MediaQuery.of(context).size.height*.75,
+          Container(height: MediaQuery.of(context).size.height*.77,
             child:
 
             PaginationView<Issue>(
               key: paginationKey,
-              itemBuilder: (BuildContext context, Issue issue, int index) => ListTile(
-                title:Text(issue.title),
-                subtitle: issue.user!=null &&issue.user.login!=null?Text(issue.user.login):Container(),
+              itemBuilder: (BuildContext context, Issue issue, int index) => Column(
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.circle,color: Theme.of(context).accentColor,size: 20,),
+                    title:Padding(
+                      padding: const EdgeInsets.only(top: 8,bottom: 6),
+                      child: Text(issue.title,),
+                    ),
+                    subtitle: issue.user!=null &&issue.user.login!=null?
+                    Text(issue.user.login,):Container(),
+                  ),
+                  Divider(color: Colors.grey,)
+                ],
               ),
               paginationViewType: PaginationViewType.listView,
               pageFetch: pageFetch,
@@ -201,6 +272,7 @@ class Pagination extends StatelessWidget{
                 child: CircularProgressIndicator(),
               ),
             ),
+
           ),
         ],
       ),
