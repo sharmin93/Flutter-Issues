@@ -14,7 +14,7 @@ class Issue {
   String state;
   bool locked;
   int comments;
-  String createdAt;
+  DateTime createdAt;
   String updatedAt;
   String closedAt;
   String authorAssociation;
@@ -60,7 +60,7 @@ class Issue {
     state = json['state'];
     locked = json['locked'];
     comments = json['comments'];
-    createdAt = json['created_at'];
+    createdAt=json['created_at'] == null? null:DateTime.parse(json['created_at']);
     updatedAt = json['updated_at'];
     closedAt = json['closed_at'];
     authorAssociation = json['author_association'];

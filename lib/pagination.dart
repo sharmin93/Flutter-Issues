@@ -10,6 +10,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'Bloc/pagination_bloc.dart';
+import 'flutter_issues_details.dart';
 class Pagination extends StatelessWidget{
 
   var page=1;
@@ -182,7 +183,7 @@ class Pagination extends StatelessWidget{
           Container(
             height: MediaQuery.of(context).size.height*.08,
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(top: 12,left: 10,right: 10,bottom: 10),
               child: Row(crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -241,26 +242,33 @@ class Pagination extends StatelessWidget{
               ),
             ),
           ),
-
-
+          Divider(color: Theme.of(context).accentColor,thickness: 1,),
           Container(height: MediaQuery.of(context).size.height*.77,
             child:
-
             PaginationView<Issue>(
               key: paginationKey,
-              itemBuilder: (BuildContext context, Issue issue, int index) => Column(
-                children: [
-                  ListTile(
-                    leading: Icon(Icons.circle,color: Theme.of(context).accentColor,size: 20,),
-                    title:Padding(
-                      padding: const EdgeInsets.only(top: 8,bottom: 6),
-                      child: Text(issue.title,),
+              itemBuilder: (BuildContext context, Issue issue, int index) => InkWell(onTap: (){
+               Navigator.pushNamed(context, '/issueDetails',arguments: issue);
+              },
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: Icon(Icons.circle,color: Theme.of(context).accentColor,size: 20,),
+                      title:Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Text(issue.title,),
+                      ),
+                      subtitle: issue.user!=null &&issue.user.login!=null?
+                      Row(crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('#${issue.number}',),
+                          Text(' by ${issue.user.login}',),
+                        ],
+                      ):Container(),
                     ),
-                    subtitle: issue.user!=null &&issue.user.login!=null?
-                    Text(issue.user.login,):Container(),
-                  ),
-                  Divider(color: Colors.grey,)
-                ],
+                    Divider(color: Colors.grey,)
+                  ],
+                ),
               ),
               paginationViewType: PaginationViewType.listView,
               pageFetch: pageFetch,

@@ -1,5 +1,6 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_issues/flutter_issues_details.dart';
 import 'package:flutter_issues/pagination.dart';
 
 void main() {
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
           theme: theme,
           darkTheme: darkTheme,
           home: MyHomePage(),
+          routes:  <String, WidgetBuilder>{
+            '/issueDetails': (BuildContext context) => issueDetails(),
+          },
         ),
       );
   }
