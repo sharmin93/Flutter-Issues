@@ -53,8 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar:
-    AppBar(centerTitle: true,title: InkWell(onTap: (){
-      AdaptiveTheme.of(context).toggleThemeMode();
+    AppBar(
+      centerTitle: true,title: InkWell(onTap: (){
+
     },
         child: Text('Flutter Issues')),),
       body: Pagination(),

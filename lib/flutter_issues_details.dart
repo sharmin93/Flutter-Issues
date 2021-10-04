@@ -53,7 +53,7 @@ class issueDetails extends StatelessWidget{
             Column(crossAxisAlignment: CrossAxisAlignment.start,
               children: [ issue.user!=null &&issue.user.login!=null?Text('${issue.user.login}'):Container(),
               SizedBox(width: 8,),
-              Text('opened this issue ${DateFormat('hh:00').format(issue.createdAt)}\'s ago.'),
+              Text('opened this issue at ${DateFormat('EEE MM yyyy, hh:mm a').format(issue.createdAt)}'),
               SizedBox(width: 8,),
               Text('${issue.comments} comments'),],)
 
