@@ -2,20 +2,17 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_issues/issues.dart';
+import 'file:///D:/flutter_challenging_project/flutter_issues/lib/response_model/issues.dart';
 import 'package:flutter_issues/network_utils/http_client.dart';
-import 'package:flutter_issues/response_model/pagination_ui_model.dart';
 import 'package:pagination_view/pagination_view.dart';
 import 'dart:async';
 import 'dart:convert';
-
-import 'Bloc/pagination_bloc.dart';
 import 'flutter_issues_details.dart';
 
 class Pagination extends StatelessWidget {
   var page = 1;
   Map queryParam = {
-    "per_page": "30",
+    "per_page": "10",
   };
   var textStyle = TextStyle(
       fontSize: 16,
@@ -171,6 +168,7 @@ class Pagination extends StatelessWidget {
           );
         });
   }
+
   void _stateModalBottomSheetMenu(BuildContext context) {
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
@@ -247,7 +245,6 @@ class Pagination extends StatelessWidget {
                           page = 1;
                           paginationKey.currentState.refresh();
                           Navigator.pop(context);
-
                         },
                         child: Text(
                           'Closed Issues',
@@ -276,8 +273,7 @@ class Pagination extends StatelessWidget {
         });
   }
 
-  GlobalKey<PaginationViewState> paginationKey =
-      GlobalKey<PaginationViewState>();
+  GlobalKey<PaginationViewState> paginationKey = GlobalKey<PaginationViewState>();
 
   @override
   Widget build(BuildContext context) {
@@ -313,7 +309,6 @@ class Pagination extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.4),
                         ),
-
                       ],
                     ),
                   ),

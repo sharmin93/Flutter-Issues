@@ -11,7 +11,7 @@ class HttpClient {
   static Future<BaseOptions> _options() async {
     return BaseOptions(
       connectTimeout: 10000,
-      receiveTimeout: 5000,
+      receiveTimeout: 10000,
     );
   }
 
@@ -21,7 +21,7 @@ class HttpClient {
     dio.interceptors.add(
       RetryInterceptor(
           options: RetryOptions(
-            retries: 3,
+            retries: 1,
             retryInterval: Duration(seconds: 3),
             retryEvaluator: (error) =>
             error.type != DioErrorType.CANCEL &&
