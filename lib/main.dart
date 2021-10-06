@@ -1,7 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
-import 'file:///D:/flutter_challenging_project/flutter_issues/lib/UI/flutter_issues_details.dart';
-import 'file:///D:/flutter_challenging_project/flutter_issues/lib/UI/pagination.dart';
+import 'package:flutter_issues/ui/flutter_issues_details.dart';
+import 'package:flutter_issues/ui/pagination.dart';
 
 void main() {
   runApp(MyApp());
