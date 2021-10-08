@@ -44,6 +44,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  static var  pagination = Pagination();
 
 
 
@@ -58,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     },
         child: Text('Flutter Issues')),),
-      body: Pagination(),
+      body: pagination,
 
     );
   }
