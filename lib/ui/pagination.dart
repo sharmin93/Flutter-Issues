@@ -9,8 +9,9 @@ import 'package:pagination_view/pagination_view.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'flutter_issues_details.dart';
-
+import 'package:flutter_issues/bloc/pagination_bloc.dart';
 class Pagination extends StatelessWidget {
+
   var page = 1;
   Map queryParam = {
     "per_page": "10",
@@ -21,7 +22,7 @@ class Pagination extends StatelessWidget {
       fontFamily: 'SFProDisplayRegular',
       fontWeight: FontWeight.normal);
 
-  void _modalBottomSheetMenu(BuildContext context) {
+  void _modalBottomSheetMenu(BuildContext context,String data) {
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
         shape: RoundedRectangleBorder(
@@ -84,11 +85,17 @@ class Pagination extends StatelessWidget {
                           queryParam["direction"] = "desc";
                           page = 1;
                           paginationKey.currentState.refresh();
+                          paginationBloc.changedSortBy.call('Newest');
                           Navigator.pop(context);
                         },
-                        child: Text(
-                          'Newest',
-                          style: textStyle,
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Newest',
+                              style: textStyle,
+                            ),
+                            data == 'Newest'?  Icon(Icons.check, color: Colors.deepOrangeAccent):Container(),
+                          ],
                         ),
                       ),
                       Divider(),
@@ -98,11 +105,17 @@ class Pagination extends StatelessWidget {
                           queryParam["direction"] = "asc";
                           page = 1;
                           paginationKey.currentState.refresh();
+                          paginationBloc.changedSortBy.call('Oldest');
                           Navigator.pop(context);
                         },
-                        child: Text(
-                          'Oldest',
-                          style: textStyle,
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Oldest',
+                              style: textStyle,
+                            ),
+                           data== 'Oldest'?  Icon(Icons.check, color: Colors.deepOrangeAccent):Container(),
+                          ],
                         ),
                       ),
                       Divider(),
@@ -112,11 +125,17 @@ class Pagination extends StatelessWidget {
                           queryParam["direction"] = "desc";
                           page = 1;
                           paginationKey.currentState.refresh();
+                          paginationBloc.changedSortBy.call('Most commented');
                           Navigator.pop(context);
                         },
-                        child: Text(
-                          'Most commented',
-                          style: textStyle,
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Most commented',
+                              style: textStyle,
+                            ),
+                            data== 'Most commented'?  Icon(Icons.check, color: Colors.deepOrangeAccent):Container(),
+                          ],
                         ),
                       ),
                       Divider(),
@@ -126,11 +145,17 @@ class Pagination extends StatelessWidget {
                           queryParam["direction"] = "asc";
                           page = 1;
                           paginationKey.currentState.refresh();
+                          paginationBloc.changedSortBy.call('Least commented');
                           Navigator.pop(context);
                         },
-                        child: Text(
-                          'Least commented',
-                          style: textStyle,
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Least commented',
+                              style: textStyle,
+                            ),
+                            data== 'Least commented'?  Icon(Icons.check, color: Colors.deepOrangeAccent):Container(),
+                          ],
                         ),
                       ),
                       Divider(),
@@ -140,11 +165,17 @@ class Pagination extends StatelessWidget {
                           queryParam["direction"] = "desc";
                           page = 1;
                           paginationKey.currentState.refresh();
+                          paginationBloc.changedSortBy.call('Recently updated');
                           Navigator.pop(context);
                         },
-                        child: Text(
-                          'Recently updated',
-                          style: textStyle,
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Recently updated',
+                              style: textStyle,
+                            ),
+                            data== 'Recently updated'?  Icon(Icons.check, color: Colors.deepOrangeAccent):Container(),
+                          ],
                         ),
                       ),
                       Divider(),
@@ -154,11 +185,17 @@ class Pagination extends StatelessWidget {
                           queryParam["direction"] = "asc";
                           page = 1;
                           paginationKey.currentState.refresh();
+                          paginationBloc.changedSortBy.call('Least Recently updated');
                           Navigator.pop(context);
                         },
-                        child: Text(
-                          'Least Recently updated',
-                          style: textStyle,
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Least Recently updated',
+                              style: textStyle,
+                            ),
+                            data== 'Least Recently updated'?  Icon(Icons.check, color: Colors.deepOrangeAccent):Container(),
+                          ],
                         ),
                       ),
                     ],
@@ -170,7 +207,7 @@ class Pagination extends StatelessWidget {
         });
   }
 
-  void _stateModalBottomSheetMenu(BuildContext context) {
+  void _stateModalBottomSheetMenu(BuildContext context,String data) {
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
         shape: RoundedRectangleBorder(
@@ -232,11 +269,17 @@ class Pagination extends StatelessWidget {
                           queryParam["state"] = "open";
                           page = 1;
                           paginationKey.currentState.refresh();
+                          paginationBloc.changedState.call('Open Issues');
                           Navigator.pop(context);
                         },
-                        child: Text(
-                          'Open Issues',
-                          style: textStyle,
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Open Issues',
+                              style: textStyle,
+                            ),
+                            data== 'Open Issues'?  Icon(Icons.check, color: Colors.deepOrangeAccent):Container(),
+                          ],
                         ),
                       ),
                       Divider(),
@@ -245,11 +288,17 @@ class Pagination extends StatelessWidget {
                           queryParam["state"] = "closed";
                           page = 1;
                           paginationKey.currentState.refresh();
+                          paginationBloc.changedState.call('Closed Issues');
                           Navigator.pop(context);
                         },
-                        child: Text(
-                          'Closed Issues',
-                          style: textStyle,
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Closed Issues',
+                              style: textStyle,
+                            ),
+                            data== 'Closed Issues'?  Icon(Icons.check, color: Colors.deepOrangeAccent):Container(),
+                          ],
                         ),
                       ),
                       Divider(),
@@ -258,11 +307,17 @@ class Pagination extends StatelessWidget {
                           queryParam["state"] = "all";
                           page = 1;
                           paginationKey.currentState.refresh();
+                          paginationBloc.changedState.call('All Issues');
                           Navigator.pop(context);
                         },
-                        child: Text(
-                          'All Issues',
-                          style: textStyle,
+                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'All Issues',
+                              style: textStyle,
+                            ),
+                            data== 'All Issues'?  Icon(Icons.check, color: Colors.deepOrangeAccent):Container(),
+                          ],
                         ),
                       ),
                     ],
@@ -275,7 +330,7 @@ class Pagination extends StatelessWidget {
   }
 
   GlobalKey<PaginationViewState> paginationKey = GlobalKey<PaginationViewState>();
-
+  PaginationBloc paginationBloc ;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -313,64 +368,74 @@ class Pagination extends StatelessWidget {
                       ],
                     ),
                   ),
-                  RaisedButton(
-                    color: Color(0xffF2F2F2),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0)),
-                    onPressed: () {
-                      _stateModalBottomSheetMenu(context);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Text(
-                            'State',
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xff371D32),
-                                fontFamily: 'SF Pro Display',
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 0.4),
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                        Icon(
-                          Icons.sort,
-                          color: Color(0xff371D32),
-                          size: 20,
-                        )
-                      ],
-                    ),
-                  ),
-                  RaisedButton(
-                    color: Color(0xffF2F2F2),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0)),
-                    onPressed: () {
-                      _modalBottomSheetMenu(context);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'SORT BY',
-                          style: TextStyle(
-                              fontSize: 14,
+                  StreamBuilder<String>(
+                    stream: paginationBloc.state,
+                    builder: (context, stateSnapshot) {
+                      return RaisedButton(
+                        color: Color(0xffF2F2F2),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0)),
+                        onPressed: () {
+                          _stateModalBottomSheetMenu(context,stateSnapshot.data);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: Text(
+                                'State',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Color(0xff371D32),
+                                    fontFamily: 'SF Pro Display',
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 0.4),
+                              ),
+                            ),
+                            SizedBox(width: 8),
+                            Icon(
+                              Icons.sort,
                               color: Color(0xff371D32),
-                              fontFamily: 'SF Pro Display',
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 0.4),
+                              size: 20,
+                            )
+                          ],
                         ),
-                        SizedBox(width: 8),
-                        Icon(
-                          Icons.sort,
-                          color: Color(0xff371D32),
-                          size: 20,
-                        )
-                      ],
-                    ),
+                      );
+                    }
+                  ),
+                  StreamBuilder<String>(
+                    stream: paginationBloc.sortBy,
+                    builder: (context, sortBySnapshot) {
+                      return sortBySnapshot.hasData?RaisedButton(
+                        color: Color(0xffF2F2F2),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0)),
+                        onPressed: () {
+                          _modalBottomSheetMenu(context,sortBySnapshot.data);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              'SORT BY',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xff371D32),
+                                  fontFamily: 'SF Pro Display',
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 0.4),
+                            ),
+                            SizedBox(width: 8),
+                            Icon(
+                              Icons.sort,
+                              color: Color(0xff371D32),
+                              size: 20,
+                            )
+                          ],
+                        ),
+                      ):Container();
+                    }
                   ),
                 ],
               ),
@@ -461,5 +526,11 @@ class Pagination extends StatelessWidget {
       completer.complete(result);
     });
     return completer.future;
+  }
+
+  Pagination(){
+    this.paginationBloc = PaginationBloc();
+    paginationBloc.changedSortBy.call("Newest");
+    paginationBloc.changedState.call("Open Issues");
   }
 }

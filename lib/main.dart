@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_issues/ui/flutter_issues_details.dart';
 import 'package:flutter_issues/ui/pagination.dart';
 
-void main() {
-  runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final savedThemeMode = await AdaptiveTheme.getThemeMode();
+  runApp(MyApp(savedThemeMode: savedThemeMode));
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  var savedThemeMode;
+
+
+  MyApp({this.savedThemeMode}); // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return
@@ -23,7 +28,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.red,
           accentColor: Colors.white,
         ),
-        initial: AdaptiveThemeMode.light,
+        initial: savedThemeMode ?? AdaptiveThemeMode.light,
         builder: (theme, darkTheme) => MaterialApp(debugShowCheckedModeBanner: false,
           title: 'Adaptive Theme Demo',
           theme: theme,
