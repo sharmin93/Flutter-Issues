@@ -1,14 +1,10 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_issues/network_utils/http_client.dart';
 import 'package:flutter_issues/response_model/issues.dart';
 import 'package:pagination_view/pagination_view.dart';
 import 'dart:async';
-import 'dart:convert';
-import 'flutter_issues_details.dart';
 import 'package:flutter_issues/bloc/pagination_bloc.dart';
 class Pagination extends StatelessWidget {
 
